@@ -1,0 +1,15 @@
+debug = false
+
+[green_api]
+token = ""
+wa_instance = ""
+
+[omnidesk]
+domain = ""
+login = ""
+token = ""
+channel = ""
+
+[redis]
+host = ""
+port = ""

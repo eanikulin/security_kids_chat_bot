@@ -1,0 +1,43 @@
+version: "3.9"
+services:
+  chat_redis:
+    image: redis:alpine
+    container_name: chat_redis
+    healthcheck:
+      test: [ 'CMD', 'redis-cli', '--raw', 'incr', 'ping' ]
+    restart: always
+    volumes:
+      - redis_data:/data
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.2
+
+  chat_api:
+    build: ./chat_api
+    container_name: chat_api
+    network_mode: "host"
+    depends_on:
+      - chat_redis
+    restart: always
+
+  chat_bot:
+    build: ./chat_bot
+    container_name: chat_bot
+    depends_on:
+      - chat_api
+    restart: always
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.4
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1
+
+volumes:
+  redis_data:
+   external: false

@@ -1,0 +1,13 @@
+[project]
+# debug mode
+debug = false
+# Green-api Watsapp token
+token = ""
+# Green-api Watsapp instance
+wa_instance = ""
+# Time of bloking user
+block_user = 604800
+
+[redis]
+host = "10.5.0.2"
+port = "6379"
